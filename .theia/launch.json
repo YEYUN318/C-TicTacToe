@@ -1,0 +1,13 @@
+{
+ "version": "0.2.0", 
+ "configurations": [
+ {
+ "type": "lldb",
+ "request": "launch",
+ "name": "Debug Current",
+ "program": "/Users/son-yeyun/Documents/yson-workspace_archive/cse30-fall2023/assignments/final-project/exercise-1/app",
+ "args": [],
+ "cwd": "/Users/son-yeyun/Documents/yson-workspace_archive/cse30-fall2023/assignments/final-project/exercise-1"
+ }
+ ]
+ }

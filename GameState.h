@@ -2,6 +2,22 @@
 #define GAME_STATE_H
 
 #include <iostream>
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+
+void mainMenu() {
+    system("clear");
+    std::cout << " WELCOME TO TIC-TAC-TOE" << std::endl;
+    std::cout << std::endl;
+    std::cout << "1. Play against the computer" << std::endl;
+    std::cout << "2. Play against a human opponent" << std::endl;
+    std::cout << "3. Settings" << std::endl;
+    std::cout << "4. Exit" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Select an option: ";
+}
 
 struct Vec{
     int x;
@@ -224,9 +240,25 @@ struct GameState{
         }
         delete[] grid;
     }
+
+    void reset() {
+        currentTurn = 0;
+        turnCount = 0;
+        done = false;
+
+        lastMove.set(-1, -1);
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                grid[i][j] = -1;
+            }
+        }
+    }
+
 };
 
 std::ostream& operator<<(std::ostream& os, const GameState& state){
+    int color = 1;
     os << "   ";
     for (int j = 0; j < state.size; j++){
         os << " " << j << "  ";
@@ -243,11 +275,20 @@ std::ostream& operator<<(std::ostream& os, const GameState& state){
             char c = ' ';
             if (state.grid[i][j] == 0){
                 c = 'X';
+                color = 1;
+                //os << " " << RED << 'X' << RESET << " ";
             }
             else if (state.grid[i][j] == 1){
                 c = 'O';
+                color = 2;
+                //os << "| " << GREEN << 'O' << RESET << " ";
             }
-            os << "| " << c << " ";
+            if (color == 1){
+                os << "| " << RED << c << RESET << " ";
+            } else {
+                os << "| " << GREEN << c << RESET << " ";
+            }
+            //os << "| " << first << c << RESET << " ";
             if (j == state.size - 1) os << "|";
         }
         os << std::endl << "   ";
@@ -258,6 +299,7 @@ std::ostream& operator<<(std::ostream& os, const GameState& state){
     }
 
     return os;
+
 }
 
 #endif
